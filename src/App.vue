@@ -1,10 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <app-header></app-header>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center align-center>
+          <router-view></router-view>
+        </v-layout>
+      </v-container>
+    </v-content>
+    <v-footer color="indigo" app>
+      <span class="white--text" text-center>&copy; 2018</span>
+    </v-footer>
   </div>
 </template>
 
@@ -29,3 +35,17 @@
   color: #42b983;
 }
 </style>
+<script>
+import Vue from "vue";
+const eventBus = new Vue();
+import AppHeader from "@/components/AppHeader";
+export default {
+  name: "App",
+  components: { /* Home, About, */ AppHeader },
+
+  data: () => {
+    return {};
+  },
+  methods: {}
+};
+</script>
