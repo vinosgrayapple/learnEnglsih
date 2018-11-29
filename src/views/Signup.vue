@@ -33,9 +33,23 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="indigo lighten-2" @click.prevent="signUp"
-              >Зарегестрироваться</v-btn
-            >
+            <v-btn color="indigo lighten-2" 
+            @click.prevent="signUp"
+            :disabled="processing"
+           
+              >
+              <v-progress-circular
+               v-if="processing"
+               indeterminate
+                color="grey darken-1"
+              />
+              <span
+              v-if="!processing"
+              >
+              Зарегестрироваться
+              </span>
+              </v-btn>
+            
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -54,6 +68,24 @@ export default {
   computed: {
     error() {
       return this.$store.getters.getError;
+    },
+    processing() {
+      return this.$store.getters.getProcessing;
+    },
+    isAuthentificated() {
+      return this.$store.getters.isAuthentificated;
+    }
+  },
+  watch: {
+    isUserAuthentificated(val) {
+      if (val === true) {
+        this.$router.push("/");
+        this.email = null;
+        this.password = null;
+        setTimeout(() => {
+          this.$store.dispatch("CLEAN_ERROR");
+        }, 2000);
+      }
     }
   },
   methods: {
@@ -67,4 +99,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

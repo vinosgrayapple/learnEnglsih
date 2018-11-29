@@ -27,5 +27,8 @@ export default {
           commit("SET_ERROR", error.message);
         });
     }
+  },
+  getters: {
+    isUserAuthentificated: state => state.user.isAuthentificated
   }
 };
